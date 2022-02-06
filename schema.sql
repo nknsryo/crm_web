@@ -1,8 +1,8 @@
 -- もしテーブルが存在したら削除
-DROP TABlE IF EXISTS customers;
+DROP TABlE IF EXISTS rate;
 
 -- もしテーブルがなかったら作成  customers--テーブル名
-CREATE TABLE IF NOT EXISTS customers (
+CREATE TABLE IF NOT EXISTS  customer(
     name TEXT,
     age INTEGER
 );
