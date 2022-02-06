@@ -12,14 +12,28 @@ def get_connection():
     return psycopg2.connect(dsn)
 
 
-def init_db():
-    """データベースの初期化を行う関数"""
+def cursor_execute(sql):
     with get_connection() as conn:
         with conn.cursor() as cur:
-            with open('schema.sql', encoding="utf-8") as f:
-                cur.execute(f.read())
+            cur.execute(sql)
+            if sql.split(" ")[0] == "SELECT":
+                customers = cur.fetchall()
+                return customers
+
+
+def init_db():
+    """データベースの初期化を行う関数"""
+    with open('schema.sql', encoding="utf-8") as f:
+        cursor_execute(f.read())
+
+
+def get_all_customers():
+    sql = "SELECT * FROM customers;"
+    customers = cursor_execute(sql)
+    return customers
 
 
 if __name__ == '__main__':
     init_db()
-    print(init_db().__doc__)
+
+    # print(init_db().__doc__)
